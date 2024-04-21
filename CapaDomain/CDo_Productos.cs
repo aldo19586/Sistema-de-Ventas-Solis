@@ -20,5 +20,21 @@ namespace CapaDominio
             objProductos.actualizarProducto(producto,idProducto);
 
         }
+        public void eliminarProducto(string idProducto)
+        {
+            objProductos.eliminarProducto(idProducto);
+        }
+        public Task<List<Producto>> BuscarProductoPorNombre(string nombreProducto)
+        {
+            return objProductos.BuscarProductoPorNombre(nombreProducto);
+        }
+        public Task<List<Producto>> BuscarProductoPorCodigo(string codigoProducto)
+        {
+            return objProductos.BuscarProductoPorCodigo(codigoProducto);
+        }
+        public Task<List<Producto>> BuscarProductoPorDescripcion(string descripcionProducto)
+        {
+            return objProductos.BuscarProductoPorDescripcion(descripcionProducto);
+        }
     }
 }

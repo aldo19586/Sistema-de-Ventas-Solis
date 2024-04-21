@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             label1 = new Label();
             txtCodigoPro = new TextBox();
             txtNombrePro = new TextBox();
@@ -47,6 +48,8 @@
             label8 = new Label();
             pbxQR = new PictureBox();
             btnGenerarQR = new Button();
+            progressBar1 = new ProgressBar();
+            timer1 = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)pbxQR).BeginInit();
             SuspendLayout();
             // 
@@ -243,11 +246,26 @@
             btnGenerarQR.UseVisualStyleBackColor = true;
             btnGenerarQR.Click += btnGenerarQR_Click;
             // 
+            // progressBar1
+            // 
+            progressBar1.Enabled = false;
+            progressBar1.Location = new Point(171, 255);
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new Size(161, 31);
+            progressBar1.Step = 1;
+            progressBar1.TabIndex = 22;
+            progressBar1.Click += progressBar1_Click;
+            // 
+            // timer1
+            // 
+
+            // 
             // FrmAgregarProducto
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(779, 360);
+            Controls.Add(progressBar1);
             Controls.Add(btnGenerarQR);
             Controls.Add(pbxQR);
             Controls.Add(label8);
@@ -269,6 +287,7 @@
             Controls.Add(label1);
             Name = "FrmAgregarProducto";
             Text = "Agregar Producto";
+            FormClosing += FrmAgregarProducto_FormClosing;
             Load += FrmAgregarProducto_Load;
             Controls.SetChildIndex(btnCancelar, 0);
             Controls.SetChildIndex(label1, 0);
@@ -290,6 +309,7 @@
             Controls.SetChildIndex(label8, 0);
             Controls.SetChildIndex(pbxQR, 0);
             Controls.SetChildIndex(btnGenerarQR, 0);
+            Controls.SetChildIndex(progressBar1, 0);
             ((System.ComponentModel.ISupportInitialize)pbxQR).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -316,5 +336,7 @@
         private Label label8;
         private PictureBox pbxQR;
         private Button btnGenerarQR;
+        private ProgressBar progressBar1;
+        public System.Windows.Forms.Timer timer1;
     }
 }

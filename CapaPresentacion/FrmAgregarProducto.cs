@@ -1,5 +1,8 @@
-﻿using CapaDominio;
+﻿using CapaDomain;
+using CapaDominio;
 using CapaEntidad;
+using CapaEntity;
+using FireSharp.Response;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +15,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CapaPresentacion
 {
@@ -19,9 +23,10 @@ namespace CapaPresentacion
     {
         CDo_Procedimientos procedimientos = new();
         CDo_Productos productos = new();
-        CDo_Categorias categorias = new();
-        CDo_Presentaciones presentaciones = new();
         Producto producto = new();
+        CDo_Inventario inventarios = new();
+        Inventario inventario = new();
+        private int conteo;
         public FrmAgregarProducto(FrmProductos Productos)
         {
             InitializeComponent();
@@ -43,6 +48,8 @@ namespace CapaPresentacion
             generarCodigo();
             procedimientos.llenarComboBox<Categoria>(cboCategoria, "categorias", "nombreCat");
             procedimientos.llenarComboBox<Presentacion>(cboPresentacion, "presentaciones", "nombrePre");
+
+
         }
         private void generarCodigo()
         {
@@ -106,62 +113,73 @@ namespace CapaPresentacion
         private void btnGuardarProducto_Click(object sender, EventArgs e)
         {
             Guardar();
+
         }
         public override bool Guardar()
         {
             try
             {
-                if (txtCodigoPro.Text == string.Empty ||
-                    txtNombrePro.Text == string.Empty ||
-                    txtDescripcionPro.Text == string.Empty ||
-                    txtCostoUnitarioPro.Text == string.Empty ||
-                    txtPrecioVentaPro.Text == string.Empty ||
-                    cboTipoCargoPro.Text == string.Empty ||
-                    cboCategoria.Text == string.Empty ||
-                    cboPresentacion.Text == string.Empty ||
+                if (string.IsNullOrWhiteSpace(txtCodigoPro.Text) ||
+                    string.IsNullOrWhiteSpace(txtNombrePro.Text) ||
+                    string.IsNullOrWhiteSpace(txtDescripcionPro.Text) ||
+                    string.IsNullOrWhiteSpace(txtCostoUnitarioPro.Text) ||
+                    string.IsNullOrWhiteSpace(txtPrecioVentaPro.Text) ||
+                    string.IsNullOrWhiteSpace(cboTipoCargoPro.Text) ||
+                    string.IsNullOrWhiteSpace(cboCategoria.Text) ||
+                    string.IsNullOrWhiteSpace(cboPresentacion.Text) ||
                     pbxQR.Image == null)
                 {
-                    MessageBox.Show("PORFAVOR COMPLETAR TODOS LOS CAMPOS", "Agregar Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    producto.codigoPro = txtCodigoPro.Text.Trim();
-                    producto.nombrePro = txtNombrePro.Text.Trim();
-                    producto.descripcionPro = txtDescripcionPro.Text.Trim();
-                    producto.presentacionPro = cboPresentacion.Text;
-                    producto.precioVentaPro = txtPrecioVentaPro.Text.Trim();
-                    producto.costoUnitarioPro = txtCostoUnitarioPro.Text.Trim();
-                    producto.tipoCargoPro = cboTipoCargoPro.Text.Trim();
-                    producto.categoriaPro = cboCategoria.Text;
-                    producto.qrPro = procedimientos.comprimirQR(pbxQR.Image,70);
-                
-
-
-                    productos.agregarProducto(producto);
-                    MessageBox.Show("SE AGREGO EL PRODUCTO EXITOSAMENTE", "Agregar Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    procedimientos.limpiarControles(this);
-                    generarCodigo();
-                    txtNombrePro.Focus();
-                    Agregar();
-                    return true;
+                    MessageBox.Show("POR FAVOR COMPLETAR TODOS LOS CAMPOS", "Agregar Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
                 }
 
+                producto.codigoPro = txtCodigoPro.Text.Trim();
+                producto.nombrePro = txtNombrePro.Text.Trim();
+                producto.descripcionPro = txtDescripcionPro.Text.Trim();
+                producto.presentacionPro = cboPresentacion.Text.Trim();
+                producto.precioVentaPro = txtPrecioVentaPro.Text.Trim();
+                producto.costoUnitarioPro = txtCostoUnitarioPro.Text.Trim();
+                producto.tipoCargoPro = cboTipoCargoPro.Text.Trim();
+                producto.categoriaPro = cboCategoria.Text.Trim();
+                producto.qrPro = procedimientos.comprimirQR(pbxQR.Image, 70);
+
+                inventario.codigoPro = producto.codigoPro;
+                inventario.nombrePro = producto.nombrePro;
+                inventario.descripcionPro = producto.descripcionPro;
+                inventario.presentacionPro = producto.presentacionPro;
+                inventario.precioVentaPro = producto.precioVentaPro;
+                inventario.costoUnitarioPro = producto.costoUnitarioPro;
+                inventario.tipoCargoPro = producto.tipoCargoPro;
+                inventario.categoriaPro = producto.categoriaPro;
+                inventario.qrPro = producto.qrPro;
+                inventario.cantidad = 0;
+
+                // Call the method to add the product to Firebase
+                productos.agregarProducto(producto);
+                inventarios.agregarInventario(inventario);
+
+                MessageBox.Show("EL PRODUCTO FUE AGREGADO EXITOSAMENTE", "Agregar Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                procedimientos.limpiarControles(this);
+                generarCodigo();
+                txtNombrePro.Focus();
+                Agregar();
+                return true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("EL PRODUCTO NO FUE AGREADO POR : " + ex.Message, "Agregar Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"EL PRODUCTO NO FUE AGREGADO POR: {ex.Message}", "Agregar Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
             }
-            return false;
         }
-      
+
 
         private void btnGenerarQR_Click(object sender, EventArgs e)
         {
             generarQrProducto();
         }
-     
 
-       
+
+
         public void generarQrProducto()
         {
 
@@ -179,15 +197,15 @@ namespace CapaPresentacion
             }
             else
             {
-
+  
                 producto.codigoPro = txtCodigoPro.Text.Trim();
                 producto.nombrePro = txtNombrePro.Text.Trim();
                 producto.descripcionPro = txtDescripcionPro.Text.Trim();
-                producto.presentacionPro = cboPresentacion.Text;
+                producto.presentacionPro = cboPresentacion.Text.Trim();
                 producto.precioVentaPro = txtPrecioVentaPro.Text.Trim();
                 producto.costoUnitarioPro = txtCostoUnitarioPro.Text.Trim();
                 producto.tipoCargoPro = cboTipoCargoPro.Text.Trim();
-                producto.categoriaPro = cboCategoria.Text;
+                producto.categoriaPro = cboCategoria.Text.Trim();
                 Zen.Barcode.CodeQrBarcodeDraw mGeneradorQR = Zen.Barcode.BarcodeDrawFactory.CodeQr;
                 String productoQR = producto.nombrePro + "/" + producto.precioVentaPro;
                 pbxQR.Image = mGeneradorQR.Draw(productoQR, 100);
@@ -203,9 +221,20 @@ namespace CapaPresentacion
                     bitmap.Save(codigoQR);
                 }
             }
-              
+
 
         }
-        
+      
+        private void progressBar1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+       
+
+        private void FrmAgregarProducto_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+        }
     }
 }

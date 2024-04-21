@@ -14,6 +14,7 @@ namespace CapaDatos
     {
      
         CD_Conexion conexion = new CD_Conexion();
+        CD_Procedimientos procedimientos = new CD_Procedimientos();
 
         public void agregarCategoria(Categoria categoria)
         {
@@ -38,6 +39,18 @@ namespace CapaDatos
             }
 
             return null;
+        }
+
+        public Categoria encontrarCategoria(string nombreBuscado)
+        {
+
+            List<Categoria> listaCategoria = procedimientos.cargarDatos<Categoria>("categorias");
+            // Utiliza LINQ para buscar el objeto con el nombre buscado
+            Categoria categoriaEncontrada = listaCategoria.FirstOrDefault(p => p.nombreCat == nombreBuscado);
+
+            // Verificar si se encontró la presentación
+            return categoriaEncontrada;
+
         }
     }
 }

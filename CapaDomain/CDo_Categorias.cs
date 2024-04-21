@@ -20,5 +20,9 @@ namespace CapaDominio
         {
            return objCategorias.obtenerIdCategoriaPorNombre(nombreCategoria);
         }
+        private Categoria encontrarCategoria(string nombreBuscado)
+        {
+            return objCategorias.encontrarCategoria(nombreBuscado);
+        }
     }
 }

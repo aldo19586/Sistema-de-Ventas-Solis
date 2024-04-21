@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CapaEntidad
+namespace CapaEntity
 {
-    public class Producto
+    public class Inventario
     {
         public string id { get; set; }
         public String codigoPro { get; set; }
@@ -18,8 +18,7 @@ namespace CapaEntidad
         public String categoriaPro { get; set; }
         public String presentacionPro { get; set; }
         public byte[] qrPro { get; set; }
-   
-
+        public int cantidad { get; set; }
 
     }
 }

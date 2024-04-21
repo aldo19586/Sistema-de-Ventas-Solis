@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CDo_Categorias.cs" />
+    <Compile Include="CDo_Inventario.cs" />
     <Compile Include="CDo_Presentaciones.cs" />
     <Compile Include="CDo_Procedimientos.cs" />
     <Compile Include="CDo_Productos.cs" />

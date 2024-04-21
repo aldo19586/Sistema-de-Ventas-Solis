@@ -82,19 +82,18 @@ namespace CapaPresentacion
                     else
                     {
 
+                        Presentacion objPresentacion = encontrarPresentacion(cboPresentacion.Text);
+                        Categoria objCategoria = encontrarCategoria(cboCategoria.Text);
                         producto.id = txtIdPro.Text.Trim();
                         producto.codigoPro = txtCodigoPro.Text.Trim();
                         producto.nombrePro = txtNombrePro.Text.Trim();
                         producto.descripcionPro = txtDescripcionPro.Text.Trim();
-                        producto.presentacionPro = cboPresentacion.Text;
+                        producto.presentacionPro = cboPresentacion.Text.Trim();
                         producto.precioVentaPro = txtPrecioVentaPro.Text.Trim();
                         producto.costoUnitarioPro = txtCostoUnitarioPro.Text.Trim();
                         producto.tipoCargoPro = cboTipoCargoPro.Text.Trim();
-                        producto.categoriaPro = cboCategoria.Text;
+                        producto.categoriaPro = cboCategoria.Text.Trim();
                         producto.qrPro = procedimientos.comprimirQR(pbxQR.Image, 80);
-
-
-
                         productos.actualizarProducto(producto, producto.id);
                         MessageBox.Show("SE ACTUALIZO EL PRODUCTO EXITOSAMENTE", "Actualizar Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -112,6 +111,29 @@ namespace CapaPresentacion
 
 
         }
+        private Presentacion encontrarPresentacion(string nombreBuscado)
+        {
+
+            List<Presentacion> listaPresentacion = procedimientos.cargarDatos<Presentacion>("presentaciones");
+            // Utiliza LINQ para buscar el objeto con el nombre buscado
+            Presentacion presentacionEncontrada = listaPresentacion.FirstOrDefault(p => p.nombrePre == nombreBuscado);
+
+            // Verificar si se encontró la presentación
+            return presentacionEncontrada;
+
+        }
+        private Categoria encontrarCategoria(string nombreBuscado)
+        {
+
+            List<Categoria> listaCategoria = procedimientos.cargarDatos<Categoria>("categorias");
+            // Utiliza LINQ para buscar el objeto con el nombre buscado
+            Categoria categoriaEncontrada = listaCategoria.FirstOrDefault(p => p.nombreCat == nombreBuscado);
+
+            // Verificar si se encontró la presentación
+            return categoriaEncontrada;
+
+        }
+
 
         private void btnGenerarQR_Click(object sender, EventArgs e)
         {
@@ -149,14 +171,16 @@ namespace CapaPresentacion
             else
             {
 
+                Presentacion objPresentacion = encontrarPresentacion(cboPresentacion.Text);
+                Categoria objCategoria = encontrarCategoria(cboCategoria.Text);
                 producto.codigoPro = txtCodigoPro.Text.Trim();
                 producto.nombrePro = txtNombrePro.Text.Trim();
                 producto.descripcionPro = txtDescripcionPro.Text.Trim();
-                producto.presentacionPro = cboPresentacion.Text;
+                producto.presentacionPro = cboPresentacion.Text.Trim();
                 producto.precioVentaPro = txtPrecioVentaPro.Text.Trim();
                 producto.costoUnitarioPro = txtCostoUnitarioPro.Text.Trim();
                 producto.tipoCargoPro = cboTipoCargoPro.Text.Trim();
-                producto.categoriaPro = cboCategoria.Text;
+                producto.categoriaPro = cboCategoria.Text.Trim();
                 Zen.Barcode.CodeQrBarcodeDraw mGeneradorQR = Zen.Barcode.BarcodeDrawFactory.CodeQr;
                 String productoQR = producto.nombrePro + "/" + producto.precioVentaPro;
                 pbxQR.Image = mGeneradorQR.Draw(productoQR, 100);
