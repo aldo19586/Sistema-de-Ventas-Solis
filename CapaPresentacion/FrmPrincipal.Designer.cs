@@ -45,6 +45,7 @@
             timer1 = new System.Windows.Forms.Timer(components);
             lblHour = new Label();
             lblFetch = new Label();
+            comprasToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -99,6 +100,7 @@
             proveedoresToolStripMenuItem.Name = "proveedoresToolStripMenuItem";
             proveedoresToolStripMenuItem.Size = new Size(174, 26);
             proveedoresToolStripMenuItem.Text = "Proveedores";
+            proveedoresToolStripMenuItem.Click += proveedoresToolStripMenuItem_Click;
             // 
             // gestionDeClientesToolStripMenuItem
             // 
@@ -108,6 +110,7 @@
             // 
             // gestionDeComprasToolStripMenuItem
             // 
+            gestionDeComprasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { comprasToolStripMenuItem });
             gestionDeComprasToolStripMenuItem.Name = "gestionDeComprasToolStripMenuItem";
             gestionDeComprasToolStripMenuItem.Size = new Size(157, 24);
             gestionDeComprasToolStripMenuItem.Text = "Gestion de Compras";
@@ -166,6 +169,13 @@
             lblFetch.Text = "17  de Abril del 2024";
             lblFetch.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // comprasToolStripMenuItem
+            // 
+            comprasToolStripMenuItem.Name = "comprasToolStripMenuItem";
+            comprasToolStripMenuItem.Size = new Size(224, 26);
+            comprasToolStripMenuItem.Text = "Compras";
+            comprasToolStripMenuItem.Click += comprasToolStripMenuItem_Click;
+            // 
             // FrmPrincipal
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -204,5 +214,6 @@
         private ToolStripMenuItem inventarioToolStripMenuItem1;
         private ToolStripMenuItem categoriasToolStripMenuItem;
         private ToolStripMenuItem presentacionToolStripMenuItem;
+        private ToolStripMenuItem comprasToolStripMenuItem;
     }
 }

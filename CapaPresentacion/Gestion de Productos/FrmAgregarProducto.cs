@@ -50,65 +50,13 @@ namespace CapaPresentacion
             procedimientos.llenarComboBox<Presentacion>(cboPresentacion, "presentaciones", "nombrePre");
 
 
+
         }
         private void generarCodigo()
         {
             txtCodigoPro.Text = procedimientos.generarCodigo("PROD");
         }
 
-        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))
-            {
-                txtDescripcionPro.Focus();
-                e.Handled = true;
-            }
-        }
-
-        private void txtDescripcion_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
-        private void txtPresentacion_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))
-            {
-                txtCostoUnitarioPro.Focus();
-                e.Handled = true;
-            }
-
-        }
-
-        private void txtCostoUnitario_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))
-            {
-                txtPrecioVentaPro.Focus();
-                e.Handled = true;
-            }
-        }
-
-        private void txtPrecioVenta_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))
-            {
-                cboTipoCargoPro.Focus();
-                e.Handled = true;
-            }
-
-        }
-
-        private void cboTipoCargo_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))
-            {
-                btnGuardarProducto.Focus();
-                e.Handled = true;
-            }
-        }
 
         private void btnGuardarProducto_Click(object sender, EventArgs e)
         {
@@ -133,26 +81,28 @@ namespace CapaPresentacion
                     return false;
                 }
 
+
+                decimal costoUnitario = Convert.ToDecimal(txtCostoUnitarioPro.Text.Trim());
+                string costoFormateado = costoUnitario.ToString("N2");
+                decimal precioVenta= Convert.ToDecimal(txtPrecioVentaPro.Text.Trim());
+                string precioVentaFormatedo = precioVenta.ToString("N2");
+
                 producto.codigoPro = txtCodigoPro.Text.Trim();
                 producto.nombrePro = txtNombrePro.Text.Trim();
                 producto.descripcionPro = txtDescripcionPro.Text.Trim();
                 producto.presentacionPro = cboPresentacion.Text.Trim();
-                producto.precioVentaPro = txtPrecioVentaPro.Text.Trim();
-                producto.costoUnitarioPro = txtCostoUnitarioPro.Text.Trim();
+                producto.precioVentaPro = precioVentaFormatedo;
+                producto.costoUnitarioPro = costoFormateado;
                 producto.tipoCargoPro = cboTipoCargoPro.Text.Trim();
                 producto.categoriaPro = cboCategoria.Text.Trim();
                 producto.qrPro = procedimientos.comprimirQR(pbxQR.Image, 70);
-
                 inventario.codigoPro = producto.codigoPro;
                 inventario.nombrePro = producto.nombrePro;
-                inventario.descripcionPro = producto.descripcionPro;
-                inventario.presentacionPro = producto.presentacionPro;
                 inventario.precioVentaPro = producto.precioVentaPro;
                 inventario.costoUnitarioPro = producto.costoUnitarioPro;
                 inventario.tipoCargoPro = producto.tipoCargoPro;
-                inventario.categoriaPro = producto.categoriaPro;
-                inventario.qrPro = producto.qrPro;
-                inventario.cantidad = 0;
+                inventario.cantidad = "0";
+                inventario.montoTotal = string.Format("C");
 
                 // Call the method to add the product to Firebase
                 productos.agregarProducto(producto);
@@ -197,13 +147,16 @@ namespace CapaPresentacion
             }
             else
             {
-  
+                decimal costoUnitario = Convert.ToDecimal(txtCostoUnitarioPro.Text.Trim());
+                string costoFormateado = costoUnitario.ToString("N2");
+                decimal precioVenta = Convert.ToDecimal(txtPrecioVentaPro.Text.Trim());
+                string precioVentaFormatedo = precioVenta.ToString("N2");
                 producto.codigoPro = txtCodigoPro.Text.Trim();
                 producto.nombrePro = txtNombrePro.Text.Trim();
                 producto.descripcionPro = txtDescripcionPro.Text.Trim();
                 producto.presentacionPro = cboPresentacion.Text.Trim();
-                producto.precioVentaPro = txtPrecioVentaPro.Text.Trim();
-                producto.costoUnitarioPro = txtCostoUnitarioPro.Text.Trim();
+                producto.precioVentaPro = precioVentaFormatedo;
+                producto.costoUnitarioPro = costoFormateado;
                 producto.tipoCargoPro = cboTipoCargoPro.Text.Trim();
                 producto.categoriaPro = cboCategoria.Text.Trim();
                 Zen.Barcode.CodeQrBarcodeDraw mGeneradorQR = Zen.Barcode.BarcodeDrawFactory.CodeQr;
@@ -224,17 +177,79 @@ namespace CapaPresentacion
 
 
         }
+
+        private void cboCategoria_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                txtNombrePro.Focus();
+                e.Handled = true;
+            }
+        }
+        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                txtDescripcionPro.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void txtDescripcion_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                cboPresentacion.Focus();
+                e.Handled = true;
+            }
+        }
+        private void cboPresentacion_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                txtCostoUnitarioPro.Focus();
+                e.Handled = true;
+            }
+        }
+        private void txtCostoUnitario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                txtPrecioVentaPro.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void txtPrecioVenta_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                cboTipoCargoPro.Focus();
+                e.Handled = true;
+            }
+
+        }
+
+        private void cboTipoCargo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                btnGenerarQR.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void btnGenerarQR_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                btnGuardarProducto.Focus();
+                e.Handled = true;
+            }
+        }
+
       
-        private void progressBar1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-       
-
-        private void FrmAgregarProducto_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            
-        }
     }
 }

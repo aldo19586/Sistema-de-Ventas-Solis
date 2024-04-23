@@ -32,20 +32,20 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dataGridViewProductos = new DataGridView();
             btnAgregar = new Button();
-            btnEliminarProducto = new Button();
+            btnEliminarProveedor = new Button();
             btnActualizar = new Button();
             cboTipoBuscar = new ComboBox();
-            txtBuscarProducto = new TextBox();
+            txtBuscarProveedor = new TextBox();
             label1 = new Label();
-            btnAgregarProducto = new Button();
-            btnActualizarProducto = new Button();
+            btnAgregarProveedor = new Button();
+            btnActualizarProveedor = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewProductos).BeginInit();
             SuspendLayout();
             // 
             // btnCancelar
             // 
             btnCancelar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnCancelar.Location = new Point(1020, 530);
+            btnCancelar.Location = new Point(1150, 541);
             // 
             // dataGridViewProductos
             // 
@@ -94,16 +94,16 @@
             btnAgregar.UseVisualStyleBackColor = true;
             btnAgregar.Click += btnAgregar_Click;
             // 
-            // btnEliminarProducto
+            // btnEliminarProveedor
             // 
-            btnEliminarProducto.FlatStyle = FlatStyle.Popup;
-            btnEliminarProducto.Location = new Point(294, 530);
-            btnEliminarProducto.Name = "btnEliminarProducto";
-            btnEliminarProducto.Size = new Size(135, 45);
-            btnEliminarProducto.TabIndex = 4;
-            btnEliminarProducto.Text = "Eliminar";
-            btnEliminarProducto.UseVisualStyleBackColor = true;
-            btnEliminarProducto.Click += btnEliminarProducto_Click;
+            btnEliminarProveedor.FlatStyle = FlatStyle.Popup;
+            btnEliminarProveedor.Location = new Point(294, 530);
+            btnEliminarProveedor.Name = "btnEliminarProveedor";
+            btnEliminarProveedor.Size = new Size(135, 45);
+            btnEliminarProveedor.TabIndex = 4;
+            btnEliminarProveedor.Text = "Eliminar";
+            btnEliminarProveedor.UseVisualStyleBackColor = true;
+            btnEliminarProveedor.Click += btnEliminarProducto_Click;
             // 
             // btnActualizar
             // 
@@ -118,21 +118,21 @@
             // cboTipoBuscar
             // 
             cboTipoBuscar.FormattingEnabled = true;
-            cboTipoBuscar.Items.AddRange(new object[] { "Codigo", "Descripcion", "Nombre" });
+            cboTipoBuscar.Items.AddRange(new object[] { "Codigo", "RUC", "Nombre" });
             cboTipoBuscar.Location = new Point(902, 31);
             cboTipoBuscar.Name = "cboTipoBuscar";
             cboTipoBuscar.Size = new Size(151, 28);
             cboTipoBuscar.TabIndex = 6;
             // 
-            // txtBuscarProducto
+            // txtBuscarProveedor
             // 
-            txtBuscarProducto.BackColor = Color.PapayaWhip;
-            txtBuscarProducto.Location = new Point(1071, 31);
-            txtBuscarProducto.Multiline = true;
-            txtBuscarProducto.Name = "txtBuscarProducto";
-            txtBuscarProducto.Size = new Size(213, 34);
-            txtBuscarProducto.TabIndex = 7;
-            txtBuscarProducto.TextChanged += txtBuscarProducto_TextChanged;
+            txtBuscarProveedor.BackColor = Color.PapayaWhip;
+            txtBuscarProveedor.Location = new Point(1071, 31);
+            txtBuscarProveedor.Multiline = true;
+            txtBuscarProveedor.Name = "txtBuscarProveedor";
+            txtBuscarProveedor.Size = new Size(213, 34);
+            txtBuscarProveedor.TabIndex = 7;
+            txtBuscarProveedor.TextChanged += txtBuscarProducto_TextChanged;
             // 
             // label1
             // 
@@ -143,27 +143,27 @@
             label1.TabIndex = 8;
             label1.Text = "Buscar:";
             // 
-            // btnAgregarProducto
+            // btnAgregarProveedor
             // 
-            btnAgregarProducto.FlatStyle = FlatStyle.Popup;
-            btnAgregarProducto.Location = new Point(12, 528);
-            btnAgregarProducto.Name = "btnAgregarProducto";
-            btnAgregarProducto.Size = new Size(135, 45);
-            btnAgregarProducto.TabIndex = 2;
-            btnAgregarProducto.Text = "Agregar";
-            btnAgregarProducto.UseVisualStyleBackColor = true;
-            btnAgregarProducto.Click += btnAgregar_Click;
+            btnAgregarProveedor.FlatStyle = FlatStyle.Popup;
+            btnAgregarProveedor.Location = new Point(12, 528);
+            btnAgregarProveedor.Name = "btnAgregarProveedor";
+            btnAgregarProveedor.Size = new Size(135, 45);
+            btnAgregarProveedor.TabIndex = 2;
+            btnAgregarProveedor.Text = "Agregar";
+            btnAgregarProveedor.UseVisualStyleBackColor = true;
+            btnAgregarProveedor.Click += btnAgregar_Click;
             // 
-            // btnActualizarProducto
+            // btnActualizarProveedor
             // 
-            btnActualizarProducto.FlatStyle = FlatStyle.Popup;
-            btnActualizarProducto.Location = new Point(153, 528);
-            btnActualizarProducto.Name = "btnActualizarProducto";
-            btnActualizarProducto.Size = new Size(135, 45);
-            btnActualizarProducto.TabIndex = 5;
-            btnActualizarProducto.Text = "Actualizar";
-            btnActualizarProducto.UseVisualStyleBackColor = true;
-            btnActualizarProducto.Click += btnActualizarProducto_Click;
+            btnActualizarProveedor.FlatStyle = FlatStyle.Popup;
+            btnActualizarProveedor.Location = new Point(153, 528);
+            btnActualizarProveedor.Name = "btnActualizarProveedor";
+            btnActualizarProveedor.Size = new Size(135, 45);
+            btnActualizarProveedor.TabIndex = 5;
+            btnActualizarProveedor.Text = "Actualizar";
+            btnActualizarProveedor.UseVisualStyleBackColor = true;
+            btnActualizarProveedor.Click += btnActualizarProducto_Click;
             // 
             // FrmProductos
             // 
@@ -171,12 +171,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1296, 607);
             Controls.Add(label1);
-            Controls.Add(txtBuscarProducto);
+            Controls.Add(txtBuscarProveedor);
             Controls.Add(cboTipoBuscar);
-            Controls.Add(btnActualizarProducto);
+            Controls.Add(btnActualizarProveedor);
             Controls.Add(btnActualizar);
-            Controls.Add(btnEliminarProducto);
-            Controls.Add(btnAgregarProducto);
+            Controls.Add(btnEliminarProveedor);
+            Controls.Add(btnAgregarProveedor);
             Controls.Add(btnAgregar);
             Controls.Add(dataGridViewProductos);
             Name = "FrmProductos";
@@ -185,12 +185,12 @@
             Controls.SetChildIndex(btnCancelar, 0);
             Controls.SetChildIndex(dataGridViewProductos, 0);
             Controls.SetChildIndex(btnAgregar, 0);
-            Controls.SetChildIndex(btnAgregarProducto, 0);
-            Controls.SetChildIndex(btnEliminarProducto, 0);
+            Controls.SetChildIndex(btnAgregarProveedor, 0);
+            Controls.SetChildIndex(btnEliminarProveedor, 0);
             Controls.SetChildIndex(btnActualizar, 0);
-            Controls.SetChildIndex(btnActualizarProducto, 0);
+            Controls.SetChildIndex(btnActualizarProveedor, 0);
             Controls.SetChildIndex(cboTipoBuscar, 0);
-            Controls.SetChildIndex(txtBuscarProducto, 0);
+            Controls.SetChildIndex(txtBuscarProveedor, 0);
             Controls.SetChildIndex(label1, 0);
             ((System.ComponentModel.ISupportInitialize)dataGridViewProductos).EndInit();
             ResumeLayout(false);
@@ -201,12 +201,12 @@
 
         public DataGridView dataGridViewProductos;
         private Button btnAgregar;
-        private Button btnEliminarProducto;
+        private Button btnEliminarProveedor;
         private Button btnActualizar;
         private ComboBox cboTipoBuscar;
-        private TextBox txtBuscarProducto;
+        private TextBox txtBuscarProveedor;
         private Label label1;
-        private Button btnAgregarProducto;
-        private Button btnActualizarProducto;
+        private Button btnAgregarProveedor;
+        private Button btnActualizarProveedor;
     }
 }

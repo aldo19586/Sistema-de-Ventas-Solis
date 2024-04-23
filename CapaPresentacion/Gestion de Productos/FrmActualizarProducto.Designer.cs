@@ -58,7 +58,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(418, 95);
+            label8.Location = new Point(239, 23);
             label8.Name = "label8";
             label8.Size = new Size(141, 20);
             label8.TabIndex = 36;
@@ -69,22 +69,24 @@
             cboCategoria.BackColor = Color.PapayaWhip;
             cboCategoria.FlatStyle = FlatStyle.System;
             cboCategoria.FormattingEnabled = true;
-            cboCategoria.Location = new Point(414, 118);
+            cboCategoria.Location = new Point(235, 46);
             cboCategoria.Name = "cboCategoria";
             cboCategoria.Size = new Size(157, 28);
             cboCategoria.TabIndex = 35;
             cboCategoria.TextChanged += cboCategoria_TextChanged;
+            cboCategoria.KeyPress += cboCategoria_KeyPress_1;
             // 
             // cboPresentacion
             // 
             cboPresentacion.BackColor = Color.PapayaWhip;
             cboPresentacion.FlatStyle = FlatStyle.System;
             cboPresentacion.FormattingEnabled = true;
-            cboPresentacion.Location = new Point(230, 46);
+            cboPresentacion.Location = new Point(411, 123);
             cboPresentacion.Name = "cboPresentacion";
             cboPresentacion.Size = new Size(157, 28);
             cboPresentacion.TabIndex = 34;
             cboPresentacion.TextChanged += cboPresentacion_TextChanged;
+            cboPresentacion.KeyPress += cboPresentacion_KeyPress;
             // 
             // btnGuardarActualizarProducto
             // 
@@ -118,22 +120,24 @@
             cboTipoCargoPro.Size = new Size(157, 28);
             cboTipoCargoPro.TabIndex = 31;
             cboTipoCargoPro.TextChanged += cboTipoCargoPro_TextChanged;
+            cboTipoCargoPro.KeyPress += cboTipoCargoPro_KeyPress;
             // 
             // txtPrecioVentaPro
             // 
             txtPrecioVentaPro.BackColor = Color.PapayaWhip;
             txtPrecioVentaPro.BorderStyle = BorderStyle.FixedSingle;
-            txtPrecioVentaPro.Location = new Point(21, 200);
+            txtPrecioVentaPro.Location = new Point(235, 200);
             txtPrecioVentaPro.Multiline = true;
             txtPrecioVentaPro.Name = "txtPrecioVentaPro";
             txtPrecioVentaPro.Size = new Size(157, 25);
             txtPrecioVentaPro.TabIndex = 30;
             txtPrecioVentaPro.TextChanged += txtPrecioVentaPro_TextChanged;
+            txtPrecioVentaPro.KeyPress += txtPrecioVentaPro_KeyPress;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(21, 177);
+            label6.Location = new Point(235, 177);
             label6.Name = "label6";
             label6.Size = new Size(94, 20);
             label6.TabIndex = 29;
@@ -143,17 +147,18 @@
             // 
             txtCostoUnitarioPro.BackColor = Color.PapayaWhip;
             txtCostoUnitarioPro.BorderStyle = BorderStyle.FixedSingle;
-            txtCostoUnitarioPro.Location = new Point(223, 200);
+            txtCostoUnitarioPro.Location = new Point(21, 200);
             txtCostoUnitarioPro.Multiline = true;
             txtCostoUnitarioPro.Name = "txtCostoUnitarioPro";
             txtCostoUnitarioPro.Size = new Size(157, 25);
             txtCostoUnitarioPro.TabIndex = 28;
             txtCostoUnitarioPro.TextChanged += txtCostoUnitarioPro_TextChanged;
+            txtCostoUnitarioPro.KeyPress += txtCostoUnitarioPro_KeyPress;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(223, 177);
+            label5.Location = new Point(21, 177);
             label5.Name = "label5";
             label5.Size = new Size(107, 20);
             label5.TabIndex = 27;
@@ -162,7 +167,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(227, 23);
+            label4.Location = new Point(408, 100);
             label4.Name = "label4";
             label4.Size = new Size(160, 20);
             label4.TabIndex = 26;
@@ -178,6 +183,7 @@
             txtDescripcionPro.Size = new Size(366, 25);
             txtDescripcionPro.TabIndex = 25;
             txtDescripcionPro.TextChanged += txtDescripcionPro_TextChanged;
+            txtDescripcionPro.KeyPress += txtDescripcionPro_KeyPress;
             // 
             // label3
             // 
@@ -198,6 +204,7 @@
             txtNombrePro.Size = new Size(336, 25);
             txtNombrePro.TabIndex = 23;
             txtNombrePro.TextChanged += txtNombrePro_TextChanged;
+            txtNombrePro.KeyPress += txtNombrePro_KeyPress;
             // 
             // label2
             // 
@@ -238,6 +245,7 @@
             btnGenerarQR.Text = "Generar QR";
             btnGenerarQR.UseVisualStyleBackColor = true;
             btnGenerarQR.Click += btnGenerarQR_Click;
+            btnGenerarQR.KeyPress += btnGenerarQR_KeyPress;
             // 
             // pbxQR
             // 

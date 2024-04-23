@@ -44,10 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CDo_Categorias.cs" />
+    <Compile Include="CDo_DetalleIngresos.cs" />
+    <Compile Include="CDo_IngresoProductos.cs" />
     <Compile Include="CDo_Inventario.cs" />
     <Compile Include="CDo_Presentaciones.cs" />
     <Compile Include="CDo_Procedimientos.cs" />
     <Compile Include="CDo_Productos.cs" />
+    <Compile Include="CDo_Proveedores.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

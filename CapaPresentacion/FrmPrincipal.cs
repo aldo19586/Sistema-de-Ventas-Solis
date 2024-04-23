@@ -64,5 +64,17 @@ namespace CapaPresentacion
             FrmPresentacion presentacion = new();
             presentacion.Show();
         }
+
+        private void proveedoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmProveedor proveedor = new();
+            proveedor.Show();
+        }
+
+        private void comprasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmCompras compras = new();
+            compras.Show();
+        }
     }
 }

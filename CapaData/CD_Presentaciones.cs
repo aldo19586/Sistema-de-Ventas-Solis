@@ -35,7 +35,23 @@ namespace CapaDatos
 
             return null;
         }
+        public string obtenerPresentacionPorIdProducto(string idProducto)
+        {
+            var client = conexion.Abrir();
+            var response = client
+                .Get("productos")
+                .ResultAs<Dictionary<string, Producto>>();
 
+            foreach (var producto in response)
+            {
+                if (producto.Key == idProducto)
+                {
+                    return producto.Value.presentacionPro;
+                }
+            }
+
+            return null;
+        }
         public Presentacion encontrarPresentacion(string nombreBuscado)
         {
 

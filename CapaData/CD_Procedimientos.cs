@@ -10,6 +10,8 @@ using System.Linq;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 using System.Reflection;
+using CapaEntity;
+
 
 namespace CapaDatos
 {
@@ -46,6 +48,39 @@ namespace CapaDatos
             // Devolver la lista de objetos del tipo T con sus IDs
             return objetos;
         }
+        public List<T> cargarDatosXid<T>(string tabla, string id)
+        {
+            var client = conexion.Abrir();
+      
+            FirebaseResponse response = client.Get(tabla);
+
+            if (response == null || response.Body == "null")
+            {
+                // Si no hay respuesta o la respuesta está vacía, devolver una lista vacía
+                return new List<T>();
+            }
+
+            // Deserializar los datos en un diccionario de ID y objetos del tipo T
+            Dictionary<string, T> data = response.ResultAs<Dictionary<string, T>>();
+            List<T> objetos = new List<T>();
+
+            // Recorrer el diccionario y agregar cada objeto al modelo T con su respectivo ID
+            foreach (var item in data)
+            {
+                T objeto = item.Value; // Obtener el objeto del diccionario
+                PropertyInfo property = typeof(T).GetProperty("id"); // Obtener la propiedad "Id" del modelo T
+                if (property != null) // Verificar si la propiedad "Id" existe en el modelo T
+                {
+                    property.SetValue(objeto, item.Key); // Establecer el valor de la propiedad "Id" como la clave del diccionario
+                }
+                objetos.Add(objeto); // Agregar el objeto al resultado
+            }
+
+            // Devolver la lista de objetos del tipo T con sus IDs
+            return objetos;
+        }
+
+
 
         public string generarCodigo(string tipoCodigo)
         {
@@ -56,6 +91,33 @@ namespace CapaDatos
             // Generar un número aleatorio entre 1000000 y 9999999 (7 dígitos)
             codigo = random.Next(1000000, 10000000).ToString();
             return tipoCodigo + codigo;
+        }
+        public string generarCodigoOrdenado(string tabla)
+        {
+            int Total = obtenerTotalRegistros(tabla);
+            string Codigo = string.Format("{0:D7}",Total);
+            return Codigo;
+
+        }
+        public int obtenerTotalRegistros(string tabla)
+        {
+            var client = conexion.Abrir();
+            FirebaseResponse response = client.Get(tabla);
+            int totalRegistros = 0;
+
+            // Verificar si la respuesta es nula o si el cuerpo es "null"
+            if (response == null || response.Body == "null")
+            {
+                totalRegistros = 1;
+            }
+            else
+            {
+                // Si hay datos en la tabla, procesa la respuesta para contar los registros
+                Dictionary<string, object> data = response.ResultAs<Dictionary<string, object>>();
+                totalRegistros = data.Count + 1;
+            }
+
+            return totalRegistros;
         }
         public void llenarComboBox<T>(ComboBox comboBox, string nombreTabla, string nombreElemento) where T : class
         {
@@ -151,6 +213,20 @@ namespace CapaDatos
 
             }
         }
+        public void formatoMoneda(TextBox xTBox)
+        {
+            if(xTBox.Text == string.Empty)
+            {
+                return;
+            }
+            else
+            {
+                decimal Monto;
+                Monto = Convert.ToDecimal(xTBox.Text);
+                xTBox.Text = Monto.ToString("N2");
+            }
+        }
+
 
 
 

@@ -77,10 +77,13 @@
   <ItemGroup>
     <Compile Include="CD_Categorias.cs" />
     <Compile Include="CD_Conexion.cs" />
+    <Compile Include="CD_DetalleIngresos.cs" />
+    <Compile Include="CD_IngresoProductos.cs" />
     <Compile Include="CD_Inventario.cs" />
     <Compile Include="CD_Presentaciones.cs" />
     <Compile Include="CD_Procedimientos.cs" />
     <Compile Include="CD_Productos.cs" />
+    <Compile Include="CD_Proveedores.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -38,5 +38,14 @@ namespace CapaDominio
         {
             return objProcedimientos.descomprimirImagen(imagenComprimida);
         }
+        public string generarCodigoOrdenado(string tabla)
+        {
+            return objProcedimientos.generarCodigoOrdenado(tabla);
+
+        }
+        public void formatoMoneda(TextBox xTBox)
+        {
+            objProcedimientos.formatoMoneda(xTBox);
+        }
     }
 }

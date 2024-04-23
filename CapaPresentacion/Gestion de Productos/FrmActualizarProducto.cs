@@ -1,5 +1,8 @@
-﻿using CapaDominio;
+﻿using CapaData;
+using CapaDomain;
+using CapaDominio;
 using CapaEntidad;
+using CapaEntity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,10 +22,11 @@ namespace CapaPresentacion
         CDo_Categorias categorias = new();
         CDo_Presentaciones presentaciones = new();
         Producto producto = new();
-
+        CDo_Inventario inventarios = new();
+        Inventario inventario = new();
         Image imagenOriginal;
         private bool seCambioImagen = false;
-    
+
 
 
         public FrmActualizarProducto(FrmProductos Productos)
@@ -46,12 +50,13 @@ namespace CapaPresentacion
         {
             imagenOriginal = pbxQR.Image;
             btnGuardarActualizarProducto.Enabled = false;
+            procedimientos.formatoMoneda(txtCostoUnitarioPro);
+            procedimientos.formatoMoneda(txtPrecioVentaPro);
         }
 
         private void btnGuardarActualizarProducto_Click(object sender, EventArgs e)
 
         {
-
             Actualizar();
         }
         public override void Actualizar()
@@ -74,7 +79,7 @@ namespace CapaPresentacion
                 }
                 else
                 {
-                    if ( !seCambioImagen)
+                    if (!seCambioImagen)
                     {
 
                         MessageBox.Show("Vuelva a generar el codigo QR.", "Actualizar Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -82,19 +87,32 @@ namespace CapaPresentacion
                     else
                     {
 
-                        Presentacion objPresentacion = encontrarPresentacion(cboPresentacion.Text);
-                        Categoria objCategoria = encontrarCategoria(cboCategoria.Text);
+
+                        decimal costoUnitario = Convert.ToDecimal(txtCostoUnitarioPro.Text.Trim());
+                        string costoFormateado = costoUnitario.ToString("N2");
+                        decimal precioVenta = Convert.ToDecimal(txtPrecioVentaPro.Text.Trim());
+                        string precioVentaFormatedo = precioVenta.ToString("N2");
                         producto.id = txtIdPro.Text.Trim();
                         producto.codigoPro = txtCodigoPro.Text.Trim();
                         producto.nombrePro = txtNombrePro.Text.Trim();
                         producto.descripcionPro = txtDescripcionPro.Text.Trim();
                         producto.presentacionPro = cboPresentacion.Text.Trim();
-                        producto.precioVentaPro = txtPrecioVentaPro.Text.Trim();
-                        producto.costoUnitarioPro = txtCostoUnitarioPro.Text.Trim();
+                        producto.precioVentaPro = precioVentaFormatedo;
+                        producto.costoUnitarioPro = costoFormateado;
                         producto.tipoCargoPro = cboTipoCargoPro.Text.Trim();
                         producto.categoriaPro = cboCategoria.Text.Trim();
                         producto.qrPro = procedimientos.comprimirQR(pbxQR.Image, 80);
+
+                        inventario.codigoPro = producto.codigoPro;
+                        inventario.nombrePro = producto.nombrePro;
+                        inventario.precioVentaPro = producto.precioVentaPro;
+                        inventario.costoUnitarioPro = producto.costoUnitarioPro;
+                        inventario.tipoCargoPro = producto.tipoCargoPro;
+                        inventario.cantidad = "0";
+                        inventario.montoTotal = string.Format("C");
+
                         productos.actualizarProducto(producto, producto.id);
+                        inventarios.actualizarInventario(inventario, inventario.codigoPro);
                         MessageBox.Show("SE ACTUALIZO EL PRODUCTO EXITOSAMENTE", "Actualizar Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
@@ -171,14 +189,16 @@ namespace CapaPresentacion
             else
             {
 
-                Presentacion objPresentacion = encontrarPresentacion(cboPresentacion.Text);
-                Categoria objCategoria = encontrarCategoria(cboCategoria.Text);
+                decimal costoUnitario = Convert.ToDecimal(txtCostoUnitarioPro.Text.Trim());
+                string costoFormateado = costoUnitario.ToString("N2");
+                decimal precioVenta = Convert.ToDecimal(txtPrecioVentaPro.Text.Trim());
+                string precioVentaFormatedo = precioVenta.ToString("N2");
                 producto.codigoPro = txtCodigoPro.Text.Trim();
                 producto.nombrePro = txtNombrePro.Text.Trim();
                 producto.descripcionPro = txtDescripcionPro.Text.Trim();
                 producto.presentacionPro = cboPresentacion.Text.Trim();
-                producto.precioVentaPro = txtPrecioVentaPro.Text.Trim();
-                producto.costoUnitarioPro = txtCostoUnitarioPro.Text.Trim();
+                producto.precioVentaPro =precioVentaFormatedo;
+                producto.costoUnitarioPro =costoFormateado;
                 producto.tipoCargoPro = cboTipoCargoPro.Text.Trim();
                 producto.categoriaPro = cboCategoria.Text.Trim();
                 Zen.Barcode.CodeQrBarcodeDraw mGeneradorQR = Zen.Barcode.BarcodeDrawFactory.CodeQr;
@@ -194,7 +214,7 @@ namespace CapaPresentacion
                     string codigoQR = saveFileDialog.FileName;
                     Bitmap bitmap = new Bitmap(pbxQR.Image);
                     bitmap.Save(codigoQR);
-                    
+
                 }
             }
 
@@ -203,7 +223,7 @@ namespace CapaPresentacion
 
         private void cboPresentacion_TextChanged(object sender, EventArgs e)
         {
-         
+
             btnGuardarActualizarProducto.Enabled = true;
         }
 
@@ -219,7 +239,7 @@ namespace CapaPresentacion
 
         private void cboCategoria_TextChanged(object sender, EventArgs e)
         {
-          btnGuardarActualizarProducto.Enabled = true;
+            btnGuardarActualizarProducto.Enabled = true;
         }
 
         private void txtPrecioVentaPro_TextChanged(object sender, EventArgs e)
@@ -235,6 +255,78 @@ namespace CapaPresentacion
         private void cboTipoCargoPro_TextChanged(object sender, EventArgs e)
         {
             btnGuardarActualizarProducto.Enabled = true;
+        }
+
+        private void cboCategoria_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                txtNombrePro.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void txtNombrePro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                txtDescripcionPro.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void txtDescripcionPro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                cboPresentacion.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void cboPresentacion_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                txtCostoUnitarioPro.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void txtCostoUnitarioPro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                txtPrecioVentaPro.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void txtPrecioVentaPro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                cboTipoCargoPro.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void cboTipoCargoPro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                btnGenerarQR.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void btnGenerarQR_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                btnGuardarActualizarProducto.Focus();
+                e.Handled = true;
+            }
         }
     }
 }

@@ -48,7 +48,6 @@
             label8 = new Label();
             pbxQR = new PictureBox();
             btnGenerarQR = new Button();
-            progressBar1 = new ProgressBar();
             timer1 = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)pbxQR).BeginInit();
             SuspendLayout();
@@ -120,7 +119,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(229, 31);
+            label4.Location = new Point(413, 103);
             label4.Name = "label4";
             label4.Size = new Size(160, 20);
             label4.TabIndex = 7;
@@ -130,7 +129,7 @@
             // 
             txtCostoUnitarioPro.BackColor = Color.PapayaWhip;
             txtCostoUnitarioPro.BorderStyle = BorderStyle.FixedSingle;
-            txtCostoUnitarioPro.Location = new Point(225, 208);
+            txtCostoUnitarioPro.Location = new Point(23, 208);
             txtCostoUnitarioPro.Multiline = true;
             txtCostoUnitarioPro.Name = "txtCostoUnitarioPro";
             txtCostoUnitarioPro.Size = new Size(157, 25);
@@ -140,7 +139,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(225, 185);
+            label5.Location = new Point(23, 185);
             label5.Name = "label5";
             label5.Size = new Size(107, 20);
             label5.TabIndex = 9;
@@ -150,7 +149,7 @@
             // 
             txtPrecioVentaPro.BackColor = Color.PapayaWhip;
             txtPrecioVentaPro.BorderStyle = BorderStyle.FixedSingle;
-            txtPrecioVentaPro.Location = new Point(23, 208);
+            txtPrecioVentaPro.Location = new Point(237, 208);
             txtPrecioVentaPro.Multiline = true;
             txtPrecioVentaPro.Name = "txtPrecioVentaPro";
             txtPrecioVentaPro.Size = new Size(157, 25);
@@ -160,7 +159,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(23, 185);
+            label6.Location = new Point(237, 185);
             label6.Name = "label6";
             label6.Size = new Size(94, 20);
             label6.TabIndex = 11;
@@ -203,25 +202,27 @@
             cboPresentacion.BackColor = Color.PapayaWhip;
             cboPresentacion.FlatStyle = FlatStyle.System;
             cboPresentacion.FormattingEnabled = true;
-            cboPresentacion.Location = new Point(232, 54);
+            cboPresentacion.Location = new Point(416, 126);
             cboPresentacion.Name = "cboPresentacion";
             cboPresentacion.Size = new Size(157, 28);
             cboPresentacion.TabIndex = 17;
+            cboPresentacion.KeyPress += cboPresentacion_KeyPress;
             // 
             // cboCategoria
             // 
             cboCategoria.BackColor = Color.PapayaWhip;
             cboCategoria.FlatStyle = FlatStyle.System;
             cboCategoria.FormattingEnabled = true;
-            cboCategoria.Location = new Point(416, 126);
+            cboCategoria.Location = new Point(237, 54);
             cboCategoria.Name = "cboCategoria";
             cboCategoria.Size = new Size(157, 28);
             cboCategoria.TabIndex = 18;
+            cboCategoria.KeyPress += cboCategoria_KeyPress;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(420, 103);
+            label8.Location = new Point(241, 31);
             label8.Name = "label8";
             label8.Size = new Size(141, 20);
             label8.TabIndex = 19;
@@ -245,27 +246,13 @@
             btnGenerarQR.Text = "Generar QR";
             btnGenerarQR.UseVisualStyleBackColor = true;
             btnGenerarQR.Click += btnGenerarQR_Click;
-            // 
-            // progressBar1
-            // 
-            progressBar1.Enabled = false;
-            progressBar1.Location = new Point(171, 255);
-            progressBar1.Name = "progressBar1";
-            progressBar1.Size = new Size(161, 31);
-            progressBar1.Step = 1;
-            progressBar1.TabIndex = 22;
-            progressBar1.Click += progressBar1_Click;
-            // 
-            // timer1
-            // 
-
+            btnGenerarQR.KeyPress += btnGenerarQR_KeyPress;
             // 
             // FrmAgregarProducto
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(779, 360);
-            Controls.Add(progressBar1);
             Controls.Add(btnGenerarQR);
             Controls.Add(pbxQR);
             Controls.Add(label8);
@@ -287,7 +274,6 @@
             Controls.Add(label1);
             Name = "FrmAgregarProducto";
             Text = "Agregar Producto";
-            FormClosing += FrmAgregarProducto_FormClosing;
             Load += FrmAgregarProducto_Load;
             Controls.SetChildIndex(btnCancelar, 0);
             Controls.SetChildIndex(label1, 0);
@@ -309,7 +295,6 @@
             Controls.SetChildIndex(label8, 0);
             Controls.SetChildIndex(pbxQR, 0);
             Controls.SetChildIndex(btnGenerarQR, 0);
-            Controls.SetChildIndex(progressBar1, 0);
             ((System.ComponentModel.ISupportInitialize)pbxQR).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -336,7 +321,6 @@
         private Label label8;
         private PictureBox pbxQR;
         private Button btnGenerarQR;
-        private ProgressBar progressBar1;
         public System.Windows.Forms.Timer timer1;
     }
 }

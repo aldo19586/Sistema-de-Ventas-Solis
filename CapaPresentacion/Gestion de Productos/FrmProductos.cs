@@ -1,5 +1,8 @@
-﻿using CapaDominio;
+﻿using CapaDomain;
+using CapaDominio;
 using CapaEntidad;
+using CapaEntity;
+using FireSharp.Response;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +19,8 @@ namespace CapaPresentacion
     {
         CDo_Procedimientos procedimientos = new();
         CDo_Productos productos = new();
+        CDo_Inventario objInventarios = new();
+        Inventario inventario = new();
         Producto producto = new();
 
         public FrmProductos()
@@ -25,6 +30,20 @@ namespace CapaPresentacion
         private void FrmProductos_Load(object sender, EventArgs e)
         {
             cargarProductos();
+
+            dataGridViewProductos.Columns[0].Visible = false;
+            dataGridViewProductos.Columns[1].Width = 140;
+            dataGridViewProductos.Columns[2].Width = 140;
+            dataGridViewProductos.Columns[3].Width = 140;
+            dataGridViewProductos.Columns[4].Width = 140;
+            dataGridViewProductos.Columns[5].Width = 140;
+            dataGridViewProductos.Columns[6].Width = 140;
+            dataGridViewProductos.Columns[7].Width = 140;
+            dataGridViewProductos.Columns[8].Width = 140;
+            dataGridViewProductos.Columns[9].Width = 140;
+            dataGridViewProductos.Columns[4].DefaultCellStyle.Format = "C";
+            dataGridViewProductos.Columns[5].DefaultCellStyle.Format = "C";
+
         }
         private void cargarProductos()
         {
@@ -116,8 +135,19 @@ namespace CapaPresentacion
                     if (result == DialogResult.Yes)
                     {
                         String idProducto = dataGridViewProductos.SelectedRows[0].Cells[0].Value.ToString();
-                        productos.eliminarProducto(idProducto);
-                        cargarProductos();
+                        String codigoProducto = dataGridViewProductos.SelectedRows[0].Cells[1].Value.ToString();
+                        string idInventario = objInventarios.obtenerIdInventarioPorCodigo(codigoProducto);
+                        if (objInventarios.eliminarInventario(inventario, codigoProducto))
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            productos.eliminarProducto(idProducto);
+                            cargarProductos();
+                        }
+    
+                      
                     }
 
 
@@ -136,17 +166,17 @@ namespace CapaPresentacion
             {
                 if (cboTipoBuscar.Text == "Codigo")
                 {
-                    dataGridViewProductos.DataSource = await productos.BuscarProductoPorCodigo(txtBuscarProducto.Text);
+                    dataGridViewProductos.DataSource = await productos.BuscarProductoPorCodigo(txtBuscarProveedor.Text);
                 }
                 else if (cboTipoBuscar.Text == "Nombre")
                 {
                     // Realiza la búsqueda por nombre
-                    dataGridViewProductos.DataSource =  productos.BuscarProductoPorNombre(txtBuscarProducto.Text);
+                    dataGridViewProductos.DataSource =  productos.BuscarProductoPorNombre(txtBuscarProveedor.Text);
 
                 }
                 else if (cboTipoBuscar.Text == "Descripcion")
                 {
-                    dataGridViewProductos.DataSource = await productos.BuscarProductoPorDescripcion(txtBuscarProducto.Text);
+                    dataGridViewProductos.DataSource = await productos.BuscarProductoPorDescripcion(txtBuscarProveedor.Text);
                 }
             }
             catch (Exception ex)
